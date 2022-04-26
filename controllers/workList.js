@@ -15,15 +15,18 @@ exports.getAll = (req, res, next) => {
 
 exports.insWork = async (req, res, next) => {
     let { body } = req
-    let result =[]
+    let result = []
+    const date = moment().format('Y-M-D H:mm:ss')
+    console.log(body)
+    console.log(date)
     req.getConnection((err, connection) => {
         if (err) return next(err)
         result = connection.query(`INSERT INTO work_list(td_username, td_content, td_dept, td_insBy, td_insDt, td_status)
-    VALUES ('ict013','${body.doing}','${body.going}','ict013','2022-4-20 09:10:00',0);`);
-       
+    VALUES ('${body.username}','${body.doing}','${body.going}','${body.username}','${date}',0);`);
+
     })
 
-    res.send({ 'status' : 'ok','result' : result})
-   
+    res.send({ 'status': 'ok', 'result': result })
+
 
 }
