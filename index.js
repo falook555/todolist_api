@@ -50,5 +50,5 @@ app.use(errorHandler)
 
 
 server.listen(PORT, () => {
-    console.log('test')
+    console.log('start')
 })
