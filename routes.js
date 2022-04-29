@@ -22,6 +22,7 @@ module.exports = function (app) {
     app.post('/signin', requireSignin, users.signin)
  
     app.post('/add-worklist',workList.insWork)
+    app.post('/up-status',workList.upStatusWork)
 
     app.get('/get-work-all/:username',workList.getAll)
 
