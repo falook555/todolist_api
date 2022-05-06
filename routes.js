@@ -23,7 +23,8 @@ module.exports = function (app) {
  
     app.post('/add-worklist',workList.insWork)
     app.post('/up-status',workList.upStatusWork)
+    app.post('/delete-list',workList.deleteList)
 
-    app.get('/get-work-all/:username',workList.getAll)
+    app.get('/get-work-all/:username',requireAuth,workList.getAll)
 
 }
