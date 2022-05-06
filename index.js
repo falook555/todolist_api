@@ -46,6 +46,48 @@ con.connect(function (err) {
 
 })
 
+
+io.on('connection', socket => {
+    console.log('New client connected')
+    
+    // cron.schedule('10 * * * * *', function () {
+    //     io.sockets.emit('083')
+    //     console.log('refresh monitor')
+    // })
+
+    socket.on('add-work', (username) => {
+        console.log(username)
+        // con.query(`UPDATE q.queue q 
+        // LEFT JOIN hos.patient p ON p.hn = q.hn
+        // set tname = CONCAT(p.fname,' ',p.lname),q.cid=p.cid
+        // WHERE q.vstdate = CURDATE() AND q.tname IS NULL `, function (err, results) {
+        //     if (err) return next(err)
+
+        // })
+
+
+        // io.sockets.emit(dep, dep, vn)
+        // // con.query(" SELECT * FROM amulet  WHERE id = ? ", [id], function (err, results) {
+        // //     if (err) return next(err)
+        // //     if (results.lenght > 0) {
+
+            
+        // //     } else {
+
+        // //     }
+        // // })
+
+
+    })
+
+   
+
+    socket.on('disconnect', () => {
+        console.log('user disconnected')
+    })
+})
+
+
 app.use(errorHandler) 
 
 

@@ -3,7 +3,7 @@ const LocalStrategy = require('passport-local')
 const JwtStrategy = require('passport-jwt').Strategy,
      ExtractJwt = require('passport-jwt').ExtractJwt
 
-const config = require('../config')
+const secret = require('../config')
 
 const localOptions = { passReqToCallback: true }
 
@@ -25,7 +25,7 @@ const localLogin = new LocalStrategy(localOptions, function (req, username, pass
 
 const jwtOptions = {
     jwtFromRequest: ExtractJwt.fromHeader('token'),
-    secretOrKey: config.secret,
+    secretOrKey: secret,
     passReqToCallback: true
 };
 
