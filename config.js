@@ -1,7 +1,7 @@
 module.exports = {
     secret: '1234',
     dbOption: {
-        host: 'localhost',
+        host: '192.168.0.74',
         user: 'root',
         password: '',
         database: 'todolist',
