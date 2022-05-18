@@ -26,5 +26,6 @@ module.exports = function (app) {
     app.post('/delete-list',workList.deleteList)
 
     app.get('/get-work-all/:username',workList.getAll)
+    app.get('/get-work-report/:username',workList.getReport)
 
 }

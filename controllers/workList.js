@@ -1,15 +1,12 @@
 const moment = require('moment')
 
 exports.getAll = (req, res, next) => {
-
     let username = req.params.username
-    // console.log(username)
     req.getConnection((err, connection) => {
-        // console.log('err --- ' + err)
         if (err) return console.log(err)
 
         try {
-            let sql = `SELECT * FROM todolists where usr_username = '${username}' and td_status <> 9 ORDER BY td_id DESC LIMIT 18`;
+            let sql = `SELECT * FROM todolists where usr_username = '${username}' and td_status <> 9 ORDER BY td_id DESC LIMIT 10`;
             connection.query(sql, (err, row) => {
                 if (err) return console.log(err)
                 res.send(row)
@@ -17,19 +14,30 @@ exports.getAll = (req, res, next) => {
         } catch (error) {
             console.log(error)
         }
-
     })
+}
 
+exports.getReport = (req, res, next) => {
+
+    let username = req.params.username
+    req.getConnection((err, connection) => {
+        if (err) return console.log(err)
+        try {
+            let sql = `SELECT * FROM todolists where usr_username = '${username}' and td_status <> 9 ORDER BY td_id DESC`;
+            connection.query(sql, (err, row) => {
+                if (err) return console.log(err)
+                res.send(row)
+            })
+        } catch (error) {
+            console.log(error)
+        }
+    })
 }
 
 exports.insWork = async (req, res, next) => {
     let { body } = req
     let result = []
     const date = moment().format('Y-M-D H:mm:ss')
-
-    // console.log(body)
-    // console.log(date)
-
     let data = {
         'usr_username': body.username,
         'td_dept': body.dept,
@@ -40,7 +48,6 @@ exports.insWork = async (req, res, next) => {
     }
 
     if (body.username != '' && body.dept != '' && body.case != '') {
-
         req.getConnection((error, connection) => {
             if (error) throw error;
             connection.query(`
@@ -48,11 +55,9 @@ exports.insWork = async (req, res, next) => {
                 if (error) throw error;
                 connection.destroy();
                 res.send({ 'status': 'ok', 'result': results })
-
             });
         });
     } else {
-        // console.log('fail-No-data')
         res.send({ 'status': 'Not-ok', 'result': results })
     }
 
@@ -62,13 +67,12 @@ exports.insWork = async (req, res, next) => {
 exports.repair = async (req, res, next) => {
     let { body } = req
     let result = []
-    console.log(body)
     const date = moment().format('Y-M-D H:mm:ss')
 
     if (body.repair != '' && body.id != '') {
         req.getConnection((error, connection) => {
             if (error) throw error;
-            let sql = `UPDATE todolists SET td_repair = '${body.repair}', td_upDt = '${date}' , td_status = '1' WHERE td_id = '${body.id}' `
+            let sql = `UPDATE todolists SET td_repair = '${body.repair}', td_upBy = '${body.username}', td_upDt = '${date}' , td_status = '1' WHERE td_id = '${body.id}' `
             connection.query(sql, function (error, results, fields) {
                 if (error) throw error;
                 connection.destroy();
@@ -76,7 +80,6 @@ exports.repair = async (req, res, next) => {
             });
         });
     } else {
-        // console.log('fail-No-data')
         res.send({ 'status': 'Not-ok', 'result': result })
     }
 
@@ -86,15 +89,7 @@ exports.deleteList = async (req, res, next) => {
     let { body } = req
     let result = []
     const date = moment().format('Y-M-D H:mm:ss')
-
     if (body.username != '' && body.td_id != '') {
-        // req.getConnection((err, connection) => {
-        //     if (err) return console.log(err)
-        //     result = connection.query(`UPDATE todolists SET td_upBy = '${body.username}' , td_upDt = '${date}' , td_status = '9' WHERE td_id = '${body.td_id}' `)
-        // })
-        // res.send({ 'status': 'ok', 'result': result })
-
-
         req.getConnection((error, connection) => {
             if (error) throw error;
             let sql = `UPDATE todolists SET td_upBy = '${body.username}' , td_upDt = '${date}' , td_status = '9' WHERE td_id = '${body.td_id}' `
@@ -102,11 +97,9 @@ exports.deleteList = async (req, res, next) => {
                 if (error) throw error;
                 connection.destroy();
                 res.send({ 'status': 'ok', 'result': results })
-
             });
         });
     } else {
-        // console.log('fail-No-data')
         res.send({ 'status': 'Not-ok', 'result': result })
     }
 
