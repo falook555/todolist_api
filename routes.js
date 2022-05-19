@@ -17,7 +17,7 @@ const workList = require('./controllers/workList')
 
 module.exports = function (app) {
     app.get('/', function (req, res) {
-        res.send("<h1 style='text-align:center;margin-top:150px; '>todoList Api</h1>")
+        res.send("<h1 style='text-align:center;margin-top:150px; '>SSW CENTER API</h1>")
     })
     app.post('/signin', requireSignin, users.signin)
  
