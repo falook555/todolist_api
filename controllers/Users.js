@@ -6,7 +6,8 @@ function tokenForUser(user) {
     const timestamp = new Date().getTime()
     return jwt.encode({
         fullname: user.usr_fname + ' ' + user.usr_lname,
-        username: user.usr_username
+        username: user.usr_username,
+        image: user.usr_img
         // iat: timestamp
     },
         config.secret
