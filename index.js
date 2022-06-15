@@ -13,7 +13,7 @@ const config = require('./config')
 const routes = require('./routes')
 
 
-const PORT = 7000
+const PORT = 5001
 const strQrcode = '';
 
 
