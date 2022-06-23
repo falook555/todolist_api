@@ -6,8 +6,8 @@ exports.getAll = (req, res, next) => {
         if (err) return console.log(err)
 
         try {
-            // let sql = `SELECT * FROM todolists where usr_username = '${username}' and td_status <> 9 and DATE(td_insDt) = CURRENT_DATE ORDER BY td_id DESC `;
-            let sql = `SELECT * FROM todolists where usr_username = '${username}' and td_status <> 9 and td_insDt LIKE '2022-06-20%' ORDER BY td_id DESC`;
+            let sql = `SELECT * FROM todolists where usr_username = '${username}' and td_status <> 9 and DATE(td_insDt) = CURRENT_DATE ORDER BY td_id DESC `;
+            // let sql = `SELECT * FROM todolists where usr_username = '${username}' and td_status <> 9 and td_insDt LIKE '2022-06-20%' ORDER BY td_id DESC`;
             connection.query(sql, (err, row) => {
                 if (err) return console.log(err)
                 res.send(row)
